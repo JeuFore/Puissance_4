@@ -1,0 +1,7 @@
+/**
+ * Jeton
+ */
+public class Jeton {
+
+    
+}
