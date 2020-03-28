@@ -8,16 +8,18 @@ public class Jeu {
     private boolean gagne;
     private int jouer_actuel;
 
-    public Jeu(Grille gl, ArrayList j, int j_actuel) {
-        System.out.println(gl);
-        System.out.println(j);
-        System.out.println(j_actuel);
+    public Jeu(Grille gl, ArrayList<Joueur> j, int j_actuel) {
         this.grille = gl;
         this.l_joueurs = j;
         for (int i = 1; i < 2 + 1; i++)
             this.l_joueurs.add(new Joueur(i));
         this.jouer_actuel = j_actuel;
         this.gagne = false;
+
+        System.out.println("Restauration : OK");
+        this.grille.afficher();
+        this.grille.trie();
+        System.out.println("Remplissage moyen: " + this.grille.getMoyenne());
     }
 
     public Jeu(int larg, int nbjoueurs) {
@@ -80,16 +82,17 @@ public class Jeu {
                     break;
             }
         }
-
+        sc.close();
         return 0;
     }
 
     public void sauvegarder() {
         try {
-            ObjectOutputStream test = new ObjectOutputStream(new FileOutputStream("Test.txt"));
-            test.writeObject(this.grille);
-            test.writeObject(this.l_joueurs);
-            test.writeObject(this.jouer_actuel);
+            ObjectOutputStream file = new ObjectOutputStream(new FileOutputStream("Puissance_4"));
+            file.writeObject(this.grille);
+            file.writeObject(this.l_joueurs);
+            file.writeObject(this.jouer_actuel);
+            file.close();
         } catch (IOException e) {
             System.out.println(e);
         } catch (Exception e) {
@@ -97,10 +100,14 @@ public class Jeu {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public static Jeu restaurer() {
         try {
-            ObjectInputStream test = new ObjectInputStream(new FileInputStream("Test.txt"));
-            return new Jeu(((Grille) test.readObject()), ((ArrayList) test.readObject()), ((int) test.readObject()));
+            ObjectInputStream file = new ObjectInputStream(new FileInputStream("Puissance_4"));
+            Jeu j = new Jeu(((Grille) file.readObject()), ((ArrayList<Joueur>) file.readObject()),
+                    ((int) file.readObject()));
+            file.close();
+            return j;
         } catch (IOException e) {
             System.out.println(e);
             return null;
