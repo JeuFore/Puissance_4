@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.io.Serializable;
 
-public class Grille implements Serializable{
+public class Grille implements Serializable {
     private ArrayList<Colonne> l_Colonnes;
     private int nbjoue;
     private double moyenne;
@@ -71,6 +71,25 @@ public class Grille implements Serializable{
     }
 
     public void trie() {
+        System.out.print("N° colonnes triées par remplissage: ");
+        ArrayList<String> liste = new ArrayList<String>();
 
+        for (int i = 0; i < this.l_Colonnes.size() - 1; i++) {
+            int x = this.l_Colonnes.get(i).taille();
+            int y = this.l_Colonnes.get(i + 1).taille();
+            if (x < y) {
+                liste.add(i, "" + y);
+                liste.add(i + 1, "" + x);
+            } else {
+                liste.add(i, "" + x);
+                liste.add(i + 1, "" + y);
+            }
+        }
+        System.out.println(this.l_Colonnes.size());
+        for (int i = 0; i < liste.size(); i++) {
+            System.out.print(liste.get(i));
+        }
+
+        System.out.println("");
     }
 }
