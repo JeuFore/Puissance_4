@@ -1,7 +1,0 @@
-/**
- * Jeu
- */
-public class Jeu {
-
-    
-}

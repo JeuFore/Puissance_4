@@ -1,7 +1,0 @@
-/**
- * Grille
- */
-public class Grille {
-
-    
-}

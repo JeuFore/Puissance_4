@@ -1,7 +1,0 @@
-/**
- * File
- */
-public class File {
-
-    
-}

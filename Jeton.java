@@ -1,7 +1,0 @@
-/**
- * Jeton
- */
-public class Jeton {
-
-    
-}
