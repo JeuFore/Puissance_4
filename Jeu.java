@@ -3,18 +3,28 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class Jeu {
+    // Liste de Joueur
     private ArrayList<Joueur> l_joueurs;
+
+    // Attribut contenant une Grille
     private Grille grille;
-    private boolean gagne;
+
+    // Attribut permettant de savoir quel joueur a joué en dernier
     private int jouer_actuel;
 
+    /**
+     * Constructeur qui recré un jeu à partir d'une sauvegarde
+     * 
+     * @param gl       Grille
+     * @param j        Liste des joueurs
+     * @param j_actuel joueurs qui devra jouer en premier
+     */
     public Jeu(Grille gl, ArrayList<Joueur> j, int j_actuel) {
         this.grille = gl;
         this.l_joueurs = j;
         for (int i = 1; i < 2 + 1; i++)
             this.l_joueurs.add(new Joueur(i));
         this.jouer_actuel = j_actuel;
-        this.gagne = false;
 
         System.out.println("Restauration : OK");
         this.grille.afficher();
@@ -22,15 +32,29 @@ public class Jeu {
         System.out.println("Remplissage moyen: " + this.grille.getMoyenne());
     }
 
+    /**
+     * Constructeur créant un Jeu contenant :
+     * - Une Grille
+     * - Une liste de Joueur de taille nbjoueurs
+     * - Le premier joueur qui devra jouer selectionné aléatoirement
+     * 
+     * @param larg
+     * @param nbjoueurs
+     */
     public Jeu(int larg, int nbjoueurs) {
         this.grille = new Grille(larg);
         this.l_joueurs = new ArrayList<Joueur>();
         for (int i = 1; i < nbjoueurs + 1; i++)
             this.l_joueurs.add(new Joueur(i));
         this.jouer_actuel = (int) Math.round(Math.random() * (this.l_joueurs.size() - 1));
-        this.gagne = false;
     }
 
+    /**
+     * Méthode permettant de demander une valeur entre 1 et max
+     * 
+     * @param max maximum que peut entrer l'utilisateur
+     * @return le nombre que l'utilisateur à rentré dans la limite donnée
+     */
     private int enterValue(int max) {
         Scanner sc = new Scanner(System.in);
         int val;
@@ -45,13 +69,18 @@ public class Jeu {
         }
     }
 
+    /**
+     * Méthode permettant de lancer le jeu
+     * 
+     * @return retourne le vainqueur du jeu ou -1 si partie sauvegarder
+     */
     public int jouer() {
         Scanner sc = new Scanner(System.in);
         String etat;
         Joueur j = this.l_joueurs.get(this.jouer_actuel);
         int choix_colonne;
         System.out.println("C'est au joueur " + j.getNumero() + " de commencer !");
-        while (!this.gagne) {
+        while (this.jouer_actuel != 1800) {
             System.out.println(
                     "Joueur " + j.getNumero() + " choisir une colonne (entre 1 et " + this.grille.nbColonne() + ") :");
             choix_colonne = enterValue(this.grille.nbColonne());
@@ -83,9 +112,12 @@ public class Jeu {
             }
         }
         sc.close();
-        return 0;
+        return this.jouer_actuel;
     }
 
+    /**
+     * Méthode permettant de sauvegarder l'entièreté d'une partie
+     */
     public void sauvegarder() {
         try {
             ObjectOutputStream file = new ObjectOutputStream(new FileOutputStream("Puissance_4"));
@@ -100,6 +132,11 @@ public class Jeu {
         }
     }
 
+    /**
+     * Méthode permettant de restaurer l'entièreté d'une partie
+     * 
+     * @return un objet Jeu
+     */
     @SuppressWarnings("unchecked")
     public static Jeu restaurer() {
         try {
