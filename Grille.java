@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.io.Serializable;
 
 public class Grille implements Serializable {
@@ -72,24 +73,26 @@ public class Grille implements Serializable {
 
     public void trie() {
         System.out.print("N° colonnes triées par remplissage: ");
-        ArrayList<String> liste = new ArrayList<String>();
+        ArrayList<Integer> liste = new ArrayList<Integer>();
 
-        for (int i = 0; i < this.l_Colonnes.size() - 1; i++) {
-            int x = this.l_Colonnes.get(i).taille();
-            int y = this.l_Colonnes.get(i + 1).taille();
-            if (x < y) {
-                liste.add(i, "" + y);
-                liste.add(i + 1, "" + x);
-            } else {
-                liste.add(i, "" + x);
-                liste.add(i + 1, "" + y);
+        for (int i = 0; i < this.l_Colonnes.size(); i++)
+            liste.add(this.l_Colonnes.get(i).taille());
+
+        int temp;
+        int value;
+        int num_col = 0;
+        for (int j = 0; j < liste.size(); j++) {
+            value = -1;
+            for (int h = 0; h < liste.size(); h++) {
+                temp = liste.get(h);
+                if (temp > value) {
+                    value = temp;
+                    num_col = h;
+                }
             }
+            System.out.print(num_col + "(" + value + ") ");
+            liste.set(num_col, -1);
         }
-        System.out.println(this.l_Colonnes.size());
-        for (int i = 0; i < liste.size(); i++) {
-            System.out.print(liste.get(i));
-        }
-
-        System.out.println("");
+        System.out.print("\n");
     }
 }
