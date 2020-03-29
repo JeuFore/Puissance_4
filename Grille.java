@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.io.Serializable;
 
-public class Grille implements Serializable {
+public class Grille implements Serializable, InterfaceGrille {
     // Liste de Colonne
     private ArrayList<Colonne> l_Colonnes;
 
