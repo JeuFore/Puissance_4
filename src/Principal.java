@@ -28,8 +28,8 @@ public class Principal {
                     System.out.println("Une valeur soit N ou C !");
             }
         } catch (Exception e) {
-            System.out.println(e);
             System.out.println("Une valeur soit N ou C !");
+            System.out.println("Nom de l'erreur : \n - " + e);
         }
     }
 }

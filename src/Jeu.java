@@ -60,10 +60,10 @@ public class Jeu {
         try {
             val = sc.nextInt();
             if (val > max || val < 1)
-                throw new Exception();
+                throw new NumberException(max);
             return val;
         } catch (Exception e) {
-            System.out.println("Veuillez choisir une valeur comprise entre 1 et " + max);
+            System.out.println(e);
             return enterValue(max);
         }
     }
