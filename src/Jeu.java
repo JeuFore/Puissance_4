@@ -26,10 +26,10 @@ public class Jeu {
             this.l_joueurs.add(new Joueur(i));
         this.jouer_actuel = j_actuel;
 
-        System.out.println("Restauration : OK");
+        System.out.println("Restauration : \033[32mOK\033[39m");
         this.grille.afficher();
         this.grille.trie();
-        System.out.println("Remplissage moyen: " + this.grille.getMoyenne());
+        System.out.println("Remplissage moyen: \033[36m" + this.grille.getMoyenne() + "\033[0m");
     }
 
     /**
@@ -43,6 +43,8 @@ public class Jeu {
     public Jeu(int larg, int nbjoueurs) {
         this.grille = new Grille(larg);
         this.l_joueurs = new ArrayList<Joueur>();
+        if(nbjoueurs < 2)
+            nbjoueurs = 2;
         for (int i = 1; i < nbjoueurs + 1; i++)
             this.l_joueurs.add(new Joueur(i));
         this.jouer_actuel = (int) Math.round(Math.random() * (this.l_joueurs.size() - 1));
@@ -78,18 +80,18 @@ public class Jeu {
         String etat;
         Joueur j = this.l_joueurs.get(this.jouer_actuel);
         int choix_colonne;
-        System.out.println("C'est au joueur " + j.getNumero() + " de commencer !");
+        System.out.println("\033[33mC'est au joueur " + j.getNumero() + " de commencer !\033[39m");
         while (this.jouer_actuel != 1800) {
             System.out.println(
-                    "Joueur " + j.getNumero() + " choisir une colonne (entre 1 et " + this.grille.nbColonne() + ") :");
+                    "Joueur \033[35m" + j.getNumero() + "\033[39m choisir une colonne (entre \033[31m1\033[39m et \033[31m" + this.grille.nbColonne() + "\033[39m) :");
             choix_colonne = enterValue(this.grille.nbColonne());
             this.grille.ajouter(choix_colonne - 1, j.getNumero());
             this.grille.afficher();
             this.grille.trie();
-            System.out.println("Remplissage moyen: " + this.grille.getMoyenne());
+            System.out.println("Remplissage moyen: \033[36m" + this.grille.getMoyenne() + "\033[0m");
             etat = "";
             while (!etat.equals("S") && !etat.equals("R") && !etat.equals("J")) {
-                System.out.println("Sauvegarder reprendre ou jouer ? (S/R/J) :");
+                System.out.println("Sauvegarder reprendre ou jouer ? (\033[32mS\033[39m/\033[31mR\033[39m/J) :");
                 etat = sc.next().toUpperCase();
             }
             if (this.jouer_actuel >= (this.l_joueurs.size() - 1))
@@ -145,11 +147,38 @@ public class Jeu {
             file.close();
             return j;
         } catch (IOException e) {
-            System.out.println(e);
+            System.out.println("\033[1mAucune sauvegarde trouvé\033[0m !");
             return null;
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("\033[31m\033[1mErreur\033[0m : Impossible de restaurer la sauvegarder");
             return null;
         }
+    }
+
+    /**
+     * Méthode permettant d'accéder à la liste de joueur
+     * 
+     * @return liste de joueur
+     */
+    public ArrayList<Joueur> getLJoueurs(){
+        return this.l_joueurs;
+    }
+
+    /**
+     * Méthode permettant d'accéder à la grille
+     * 
+     * @return Grille
+     */
+    public Grille getGrille(){
+        return this.grille;
+    }
+
+    /**
+     * Méthode permettant d'accéder au joueur actuel
+     * 
+     * @return joueur actuel
+     */
+    public int getJoueurActuel(){
+        return this.jouer_actuel;
     }
 }

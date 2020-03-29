@@ -34,6 +34,8 @@ public class Grille implements Serializable, InterfaceGrille {
      * @param larg taille de la Grille
      */
     public Grille(int larg) {
+        if(larg < 2)
+            larg = 2;
         this.l_Colonnes = new ArrayList<Colonne>();
         for (int i = 0; i < larg; i++)
             this.l_Colonnes.add(new Colonne());
@@ -84,25 +86,25 @@ public class Grille implements Serializable, InterfaceGrille {
                 max = temp;
         }
 
-        System.out.print("+");
+        System.out.print("\033[90m+");
         for (int b = 0; b < nbColonne(); b++) {
-            System.out.print("-+");
+            System.out.print("\033[95m-\033[90m+\033[39m");
         }
         System.out.println("");
         for (int i = max - 1; i >= 0; i--) {
             for (int j = 0; j < nbColonne(); j++) {
                 taille = this.l_Colonnes.get(j).taille();
                 if (taille > i) {
-                    System.out.print("|" + this.l_Colonnes.get(j).getJeton(i));
+                    System.out.print("\033[95m|\033[39m" + this.l_Colonnes.get(j).getJeton(i));
                 } else {
-                    System.out.print("| ");
+                    System.out.print("\033[95m| \033[39m");
                 }
             }
-            System.out.print("|");
+            System.out.print("\033[95m|\033[39m");
             System.out.println("");
-            System.out.print("+");
+            System.out.print("\033[90m+\033[39m");
             for (int b = 0; b < nbColonne(); b++) {
-                System.out.print("-+");
+                System.out.print("\033[95m-\033[90m+\033[39m");
             }
             System.out.print("\n");
         }
@@ -112,7 +114,7 @@ public class Grille implements Serializable, InterfaceGrille {
      * Méthode permettant d'afficher les numéro de colonnes triées par remplissages
      */
     public void trie() {
-        System.out.print("N° colonnes triées par remplissage: ");
+        System.out.print("N° colonnes triées par remplissage: \033[94m");
         ArrayList<Integer> liste = new ArrayList<Integer>();
 
         for (int i = 0; i < this.l_Colonnes.size(); i++)
@@ -133,6 +135,6 @@ public class Grille implements Serializable, InterfaceGrille {
             System.out.print(num_col + "(" + value + ") ");
             liste.set(num_col, -1);
         }
-        System.out.print("\n");
+        System.out.print("\n\033[39m");
     }
 }

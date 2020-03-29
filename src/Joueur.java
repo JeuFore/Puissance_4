@@ -37,7 +37,7 @@ public class Joueur implements Serializable {
     /**
      * Méthode permettant de retourner le numero du joueur actuel
      * 
-     * @return numero du Jeton
+     * @return numero du joueur
      */
     public int getNumero() {
         return this.numero;
