@@ -33,13 +33,12 @@ public class Jeu {
     }
 
     /**
-     * Constructeur créant un Jeu contenant :
-     * - Une Grille
-     * - Une liste de Joueur de taille nbjoueurs
-     * - Le premier joueur qui devra jouer selectionné aléatoirement
+     * Constructeur créant un Jeu contenant : - Une Grille - Une liste de Joueur de
+     * taille nbjoueurs - Le premier joueur qui devra jouer selectionné
+     * aléatoirement
      * 
-     * @param larg
-     * @param nbjoueurs
+     * @param larg      largeur du jeu
+     * @param nbjoueurs nombre de joueur du jeu
      */
     public Jeu(int larg, int nbjoueurs) {
         this.grille = new Grille(larg);

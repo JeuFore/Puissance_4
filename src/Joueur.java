@@ -16,7 +16,7 @@ public class Joueur implements Serializable {
     /**
      * Constructeur Joueur qui construit un joueur à l'aide d'un numéro
      * 
-     * @param num
+     * @param num Numéro du joueur
      */
     public Joueur(int num) {
         this.numero = num;
@@ -26,8 +26,8 @@ public class Joueur implements Serializable {
      * Constructeur Joueur qui construit un joueur/ordinateur à l'aide d'un numéro
      * et d'un boolean
      * 
-     * @param num
-     * @param ord
+     * @param num Numéro du joueur
+     * @param ord Ordinateur ou non
      */
     public Joueur(int num, boolean ord) {
         this.numero = num;
